@@ -186,3 +186,85 @@ footer nav ul {
 	margin: 2em
 }
 
+/* boutons */
+.boutons{
+	display:flex;
+	justify-content: center;
+	gap:10px;
+	margin-bottom: 30px;
+}
+
+.btn {
+	font-family: 'syne', sans serif;
+	font-style: normal;
+	font-size: 16px;
+	border-radius: 60px;
+	color:#1D6154;
+	border:1px solid #1D6154;
+	background: #fff;
+	align-items: center;
+
+}
+
+.selected{
+	background: #1D6154;
+	color:#fff;
+}
+
+.lien-nav {
+	text-decoration: none;
+
+}
+
+.lienLogin {
+	text-decoration: none;
+	font-weight: 800;
+	color: black;
+}
+
+.login h2 {
+	text-align: center;
+	margin-bottom: 25px;
+	margin-top: 150px;
+}
+
+form {
+	display :flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+label{
+	display: flex;
+	align-items: center;
+
+}
+
+input {
+	width: 380px;
+	height: 50px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
+	border: none;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+form div {
+	display: flex;
+	flex-direction: column;
+}
+
+form a {
+	text-align: center;
+	margin-bottom: 100px;
+
+}
+
+.validation {
+	display: flex;
+	width: 180px;
+	height: 38px;
+	margin: 35px auto 25px auto;
+	justify-content: center;
+}

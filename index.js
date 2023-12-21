@@ -1,4 +1,4 @@
-// ----Récupération des oeuvres à partir de l'api -----
+// ---- Récupération des oeuvres à partir de l'api -----
 const getWorks = async () => {
     const response = await fetch("http://localhost:5678/api/works") 
     const works = await response.json()
@@ -18,11 +18,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // afficher les categories
     createCategory(categories)
+
+    // afficher boutons
+
     
 })
 
 
-// // -----Récuperation des catégories à partir de l'api -----
+// // ----- Récuperation des catégories à partir de l'api -----
 const getCategories = async () => {
     const response = await fetch("http://localhost:5678/api/categories")
     const categories = await response.json()
@@ -31,7 +34,7 @@ const getCategories = async () => {
     
 
 
-// -----Récupération de la gallery -----
+// ----- Récupération de la gallery -----
 const createGallery = (works) => {
     works.forEach((work) => {
         const contenerGallery = document.querySelector(".gallery")
@@ -49,7 +52,32 @@ const createGallery = (works) => {
         figures.appendChild(figureFigCaption)
         figureFigCaption.innerText = work.title
         
-        console.log(figures)
+        // console.log(figures)
     }
     )
 }
+
+
+// ----- Création des boutons -----
+// const conteneurBtns = () => {
+//     const filter = document.createElement("div")
+//         filter.classList.add("filter")
+//         portfolio.appendChild(filter)
+//         boutons.innerHtml = `
+//         <button class = "
+//     `
+// }
+
+//___Initialisation des boutons___
+let indexBouton = 0;
+const conteneurBtn = document.querySelector("filter")
+for (let i = 0; i < categories.lenght; i++){
+    let whiteBtn = document.createElement("div")
+    whiteBtn.classList.add("btn")
+    conteneurBtn.appendChild(whiteBtn)
+    if (i === indexBouton){
+        whiteBtn.classList.add("selected")
+    }
+   
+}
+
