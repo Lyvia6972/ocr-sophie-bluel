@@ -187,7 +187,7 @@ footer nav ul {
 }
 
 /* boutons */
-.boutons{
+.filter{
 	display:flex;
 	justify-content: center;
 	gap:10px;
@@ -195,6 +195,7 @@ footer nav ul {
 }
 
 .btn {
+	display: flex;
 	font-family: 'syne', sans serif;
 	font-style: normal;
 	font-size: 16px;
@@ -203,7 +204,11 @@ footer nav ul {
 	border:1px solid #1D6154;
 	background: #fff;
 	align-items: center;
-
+	height: 30px;
+	min-width: 100px;
+	cursor: pointer;
+	justify-content: center;
+	padding: 0 15px;
 }
 
 .selected{
@@ -228,7 +233,7 @@ footer nav ul {
 	margin-top: 150px;
 }
 
-form {
+.login form {
 	display :flex;
 	flex-direction: column;
 	justify-content: center;
@@ -248,6 +253,7 @@ input {
 	border: none;
 	margin-top: 10px;
 	margin-bottom: 20px;
+	outline:none;
 }
 
 form div {
