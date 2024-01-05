@@ -1,5 +1,6 @@
 const contenerGallery = document.querySelector(".gallery");
 const conteneurBtn = document.querySelector(".filtre");
+// const ensBtns = document.querySelectorAll(".btn");
 
 // ---- Récupération des oeuvres à partir de l'api -----
 const getWorks = async () => {
@@ -12,24 +13,27 @@ let indexBouton = 0;
 
 // initiaalisation de la page
 document.addEventListener("DOMContentLoaded", async () => {
-  // recuperation des works
-  const works = await getWorks();
+  const works = await getWorks(); // recuperation des works
 
-  // affichage des works
-  createGallery(works);
+  createGallery(works); // affichage des works
   // console.log(works);
 
-  // recuperer les categories
-  const categories = await getCategories();
+  const categories = await getCategories(); // recuperer les categories
   // console.log(categories);
 
-  //Affichage des boutons avec le 1er en vert
+  let whiteBtn = document.createElement("div"); //Affichage des boutons
+  whiteBtn.classList.add("btn");
+  conteneurBtn.appendChild(whiteBtn);
+
+  whiteBtn.innerText = "Tous"; // noms des categories qui s'affichent dans les boutons hihihi
+  whiteBtn.setAttribute("id", 0);
+
   for (let i = 0; i < categories.length; i++) {
-    let whiteBtn = document.createElement("div");
+    let whiteBtn = document.createElement("div"); //Affichage des boutons
     whiteBtn.classList.add("btn");
     conteneurBtn.appendChild(whiteBtn);
-    // noms des categories qui s'affichent dans les boutons hihihi
-    whiteBtn.innerText = categories[i].name;
+
+    whiteBtn.innerText = categories[i].name; // noms des categories qui s'affichent dans les boutons hihihi
     whiteBtn.setAttribute("id", categories[i].id);
 
     /* A faire 
@@ -37,49 +41,30 @@ document.addEventListener("DOMContentLoaded", async () => {
        inserer le filtrage des boutons
        changer la couleur des btn en vert puis blanc*/
 
-    // Eventlistener et changement de couleur
-    whiteBtn[i].addEventListener("click", () => {
-      const ensBtns = document.querySelectorAll(".btn");
+    whiteBtn.addEventListener("click", () => {
+      const ensBtns = document.querySelectorAll(".btn"); // Eventlistener et changement de couleur
       ensBtns.forEach((whiteBtn) => {
         whiteBtn.classList.remove("selected");
       });
       whiteBtn.classList.add("selected");
     });
 
-    // const ensBtns = document.querySelectorAll(".btn");
-    // for (let i = 0; i < ensBtns.length; i++) {
-    // ensBtns[i].addEventListener("click", () => {
-    if (i !== 0) {
-      allFilter = works.filter((bouton) => bouton.categoryId == i);
-      createGallery(allFilter);
-      console.log(allFilter);
-    } else {
-      createGallery(works);
+    const ensBtns = document.querySelectorAll(".btn");
+    for (let i = 0; i < ensBtns.length; i++) {
+      ensBtns[i].addEventListener("click", () => {
+        if (i !== 0) {
+          allFilter = works.filter((bouton) => bouton.categoryId == i);
+          createGallery(allFilter);
+          console.log(allFilter);
+        } else {
+          createGallery(works);
+        }
+      });
     }
-    //   });
-    // }
-
-    // const btnFiltered = categories.filter((bouton, index) => {
-    //   if (whiteBtn == bouton.categories[i]) {
-    //     return bouton;
-    //   }
-    //   console.log(btnFiltered);
-    // });
   }
-  // console.log(whiteBtn);
 });
 
-//     nextBtnSelected();
-
-//     document.querySelector(".btn").addEventListener("click", () => {
-//         const objets = works.filter((event) => {
-//           return event.category.id === 1;
-//         });
-//         createGallery(objets);
-//       });
-// });
-
-// // ----- Récuperation des catégories à partir de l'api -----
+// ----- Récuperation des catégories à partir de l'api -----
 const getCategories = async () => {
   const response = await fetch("http://localhost:5678/api/categories");
   const categories = await response.json();
@@ -88,6 +73,7 @@ const getCategories = async () => {
 
 // ----- Récupération de la gallery -----
 const createGallery = (works) => {
+  contenerGallery.innerHTML = "";
   works.forEach((work) => {
     const figures = document.createElement("figure");
     contenerGallery.appendChild(figures);
@@ -105,16 +91,3 @@ const createGallery = (works) => {
     // console.log(figures)
   });
 };
-
-// const ensBtns = document.querySelectorAll(".btn");
-// for (let i = 0; i < ensBtns.length; i++) {
-//   ensBtns[i].addEventListener("click", () => {
-//     if (i !== 0) {
-//       allFilter = works.filter((bouton) => bouton.categoryId == i);
-//       createGallery(allFilter);
-//       console.log(allFilter);
-//     } else {
-//       createGallery(works);
-//     }
-//   });
-// }
