@@ -11,7 +11,7 @@ const getWorks = async () => {
 
 let indexBouton = 0;
 
-// initiaalisation de la page
+// initialisation de la page
 document.addEventListener("DOMContentLoaded", async () => {
   const works = await getWorks(); // recuperation des works
 
@@ -21,12 +21,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   const categories = await getCategories(); // recuperer les categories
   // console.log(categories);
 
-  let whiteBtn = document.createElement("div"); //Affichage des boutons
-  whiteBtn.classList.add("btn");
-  conteneurBtn.appendChild(whiteBtn);
+  let whiteBtntous = document.createElement("div"); //Affichage du bouton Tous
+  whiteBtntous.classList.add("btn");
+  conteneurBtn.appendChild(whiteBtntous);
 
-  whiteBtn.innerText = "Tous"; // noms des categories qui s'affichent dans les boutons hihihi
-  whiteBtn.setAttribute("id", 0);
+  whiteBtntous.innerText = "Tous";
+  whiteBtntous.setAttribute("id", 0, "selected");
+  // categories.unshift(whiteBtn);
 
   for (let i = 0; i < categories.length; i++) {
     let whiteBtn = document.createElement("div"); //Affichage des boutons
@@ -35,6 +36,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     whiteBtn.innerText = categories[i].name; // noms des categories qui s'affichent dans les boutons hihihi
     whiteBtn.setAttribute("id", categories[i].id);
+
+    // if (categories[i].id === 0) {
+    //   whiteBtn.classList.add("selected");
+    // }
+    // if (i === indexBouton) {
+    //   whiteBtn.classList.add("selected");
+    // }
 
     /* A faire 
        creer un evenlistener au clique pour chak btn
@@ -49,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       whiteBtn.classList.add("selected");
     });
 
-    const ensBtns = document.querySelectorAll(".btn");
+    const ensBtns = document.querySelectorAll(".btn"); //  clique pour avoir le filtre
     for (let i = 0; i < ensBtns.length; i++) {
       ensBtns[i].addEventListener("click", () => {
         if (i !== 0) {
@@ -73,7 +81,7 @@ const getCategories = async () => {
 
 // ----- Récupération de la gallery -----
 const createGallery = (works) => {
-  contenerGallery.innerHTML = "";
+  contenerGallery.innerHTML = ""; //  ligne pour vider la page afin que les filtres ne s'accumulent pas sur la page
   works.forEach((work) => {
     const figures = document.createElement("figure");
     contenerGallery.appendChild(figures);
@@ -88,6 +96,6 @@ const createGallery = (works) => {
     figures.appendChild(figureFigCaption);
     figureFigCaption.innerText = work.title;
 
-    // console.log(figures)
+    // console.log(figures);
   });
 };
