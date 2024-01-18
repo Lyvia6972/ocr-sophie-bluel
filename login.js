@@ -16,15 +16,16 @@ form.addEventListener("submit", function (envoie) {
       email: myEmail,
       password: myMdp,
     }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        response.json()
-      .then((data) => {
+  }).then((response) => {
+    if (response.ok) {
+      response.json().then((data) => {
         const userdata = data.token;
-        if (localStorage.user = userdata)
-        document.location.href = ("./index.html");
-      })} else {
-        document.querySelector(".error").innerHTML = "Erreur dans l'identifiant ou le mot de passe";
-      }
+        if ((localStorage.user = userdata))
+          document.location.href = "./index.html";
+      });
+    } else {
+      document.querySelector(".error").innerHTML =
+        "Erreur dans l'identifiant ou le mot de passe";
+    }
+  });
 });

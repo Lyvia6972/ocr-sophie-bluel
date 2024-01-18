@@ -1,6 +1,5 @@
 const contenerGallery = document.querySelector(".gallery");
 const conteneurBtn = document.querySelector(".filtre");
-// const ensBtns = document.querySelectorAll(".btn");
 
 // ---- Récupération des oeuvres à partir de l'api -----
 const getWorks = async () => {
@@ -21,61 +20,56 @@ document.addEventListener("DOMContentLoaded", async () => {
   const categories = await getCategories(); // recuperer les categories
   // console.log(categories);
 
-  let whiteBtntous = document.createElement("div"); //Affichage du bouton Tous
-  whiteBtntous.classList.add("btn");
-  conteneurBtn.appendChild(whiteBtntous);
-
-  whiteBtntous.innerText = "Tous";
-  whiteBtntous.setAttribute("id", 0, "selected");
-  // categories.unshift(whiteBtn);
-
   for (let i = 0; i < categories.length; i++) {
-    let whiteBtn = document.createElement("div"); //Affichage des boutons
-    whiteBtn.classList.add("btn");
-    conteneurBtn.appendChild(whiteBtn);
+    let currentBtn = document.createElement("div"); //Affichage des boutons
+    currentBtn.classList.add("btn");
+    conteneurBtn.appendChild(currentBtn);
 
-    whiteBtn.innerText = categories[i].name; // noms des categories qui s'affichent dans les boutons hihihi
-    whiteBtn.setAttribute("id", categories[i].id);
+    currentBtn.innerText = categories[i].name; // noms des categories qui s'affichent dans les boutons hihihi
+    currentBtn.setAttribute("id", categories[i].id);
 
-    // if (categories[i].id === 0) {
-    //   whiteBtn.classList.add("selected");
-    // }
-    // if (i === indexBouton) {
-    //   whiteBtn.classList.add("selected");
-    // }
+    currentBtn.addEventListener("click", () => {
+      // Eventlistener et changement de couleur
+      const ensBtns = document.querySelectorAll(".btn");
+      ensBtns.forEach((btn) => {
+        console.log(btn);
 
-    /* A faire 
-       creer un evenlistener au clique pour chak btn
-       inserer le filtrage des boutons
-       changer la couleur des btn en vert puis blanc*/
-
-    whiteBtn.addEventListener("click", () => {
-      const ensBtns = document.querySelectorAll(".btn"); // Eventlistener et changement de couleur
-      ensBtns.forEach((whiteBtn) => {
-        whiteBtn.classList.remove("selected");
+        btn.classList.remove("selected");
       });
-      whiteBtn.classList.add("selected");
+      currentBtn.classList.add("selected");
+
+      if (i !== 0) {
+        allFilter = works.filter((bouton) => bouton.categoryId == i);
+        createGallery(allFilter);
+        // console.log(allFilter);
+      } else {
+        createGallery(works);
+      }
     });
-
-    const ensBtns = document.querySelectorAll(".btn"); //  clique pour avoir le filtre
-    for (let i = 0; i < ensBtns.length; i++) {
-      ensBtns[i].addEventListener("click", () => {
-        if (i !== 0) {
-          allFilter = works.filter((bouton) => bouton.categoryId == i);
-          createGallery(allFilter);
-          console.log(allFilter);
-        } else {
-          createGallery(works);
-        }
-      });
-    }
   }
 });
+
+// const btnTous = document.querySelector("#btn-tous"); //bouton Tous
+// console.log(btnTous);
+// // btnTous.addEventListener("click", () => {
+//   const ensBtns = document.querySelectorAll(".btn");
+//   ensBtns.forEach((btn) => {
+//     btn.classList.remove("selected");
+//   });
+//   btnTous.classList.add("selected");
+
+//   // btnTous.innerText = categories[i].name; // noms des categories qui s'affichent dans les boutons hihihi
+//   // btnTous.setAttribute("id", categories[i].id);
+// });
 
 // ----- Récuperation des catégories à partir de l'api -----
 const getCategories = async () => {
   const response = await fetch("http://localhost:5678/api/categories");
   const categories = await response.json();
+
+  const btnTous = { id: 0, name: "Tous", class: "selected" };
+  categories.unshift(btnTous);
+
   return categories;
 };
 
@@ -95,7 +89,5 @@ const createGallery = (works) => {
     const figureFigCaption = document.createElement("figcaption");
     figures.appendChild(figureFigCaption);
     figureFigCaption.innerText = work.title;
-
-    // console.log(figures);
   });
 };
