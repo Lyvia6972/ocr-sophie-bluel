@@ -1,5 +1,7 @@
 const form = document.querySelector("form");
 
+// alert("Je vais voir si ça fonctionne");
+
 form.addEventListener("submit", function (envoie) {
   const myEmail = document.getElementById("email").value;
   const myMdp = document.getElementById("password").value;
@@ -25,7 +27,7 @@ form.addEventListener("submit", function (envoie) {
       });
     } else {
       document.querySelector(".error").innerHTML =
-        "Erreur dans l'identifiant ou le mot de passe";
+        "Email ou mot de passe invalide";
     }
   });
 });

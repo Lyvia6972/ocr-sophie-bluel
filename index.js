@@ -20,13 +20,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   const categories = await getCategories(); // recuperer les categories
   // console.log(categories);
 
-  for (let i = 0; i < categories.length; i++) {
+  for (let i = 0; i < categories.length; i += 1) {
     let currentBtn = document.createElement("div"); //Affichage des boutons
     currentBtn.classList.add("btn");
     conteneurBtn.appendChild(currentBtn);
 
     currentBtn.innerText = categories[i].name; // noms des categories qui s'affichent dans les boutons hihihi
     currentBtn.setAttribute("id", categories[i].id);
+
+    if (categories[i].id === 0) {
+      // bouton "Tous" actif au chargement de la page
+      currentBtn.classList.add("selected");
+    }
 
     currentBtn.addEventListener("click", () => {
       // Eventlistener et changement de couleur
@@ -51,15 +56,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // const btnTous = document.querySelector("#btn-tous"); //bouton Tous
 // console.log(btnTous);
-// // btnTous.addEventListener("click", () => {
+// btnTous.addEventListener("click", () => {
 //   const ensBtns = document.querySelectorAll(".btn");
 //   ensBtns.forEach((btn) => {
 //     btn.classList.remove("selected");
 //   });
 //   btnTous.classList.add("selected");
 
-//   // btnTous.innerText = categories[i].name; // noms des categories qui s'affichent dans les boutons hihihi
-//   // btnTous.setAttribute("id", categories[i].id);
+//   btnTous.innerText = categories[i].name; // noms des categories qui s'affichent dans les boutons hihihi
+//   btnTous.setAttribute("id", categories[i].id);
 // });
 
 // ----- Récuperation des catégories à partir de l'api -----
@@ -67,7 +72,7 @@ const getCategories = async () => {
   const response = await fetch("http://localhost:5678/api/categories");
   const categories = await response.json();
 
-  const btnTous = { id: 0, name: "Tous", class: "selected" };
+  const btnTous = { id: 0, name: "Tous" }; // Boutons "Tous"
   categories.unshift(btnTous);
 
   return categories;
