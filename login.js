@@ -18,16 +18,33 @@ form.addEventListener("submit", function (envoie) {
       email: myEmail,
       password: myMdp,
     }),
-  }).then((response) => {
-    if (response.ok) {
-      response.json().then((data) => {
-        const userdata = data.token;
-        if ((localStorage.user = userdata))
-          document.location.href = "./index.html";
-      });
-    } else {
-      document.querySelector(".error").innerHTML =
-        "Email ou mot de passe invalide";
-    }
-  });
+    //   }).then((response) => {
+    //     if (response.ok) {
+    //       response.json().then((data) => {
+    //         const userdata = data.token;
+    //         if ((localStorage.user = userdata))
+    //           document.location.href = "./index.html";
+    //       });
+    //     } else {
+    //       document.querySelector(".error").innerHTML =
+    //         "Email ou mot de passe invalide";
+    //     }
+    //   });
+    // });
+    //
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        document.querySelector(".error").innerHTML =
+          "Email ou mot de passe invalide";
+      }
+    })
+    .then((data) => {
+      if (data.token) {
+        sessionStorage.setItem("token", data.token);
+        window.location.href = "index.html";
+      }
+    });
 });

@@ -1,5 +1,8 @@
 const contenerGallery = document.querySelector(".gallery");
 const conteneurBtn = document.querySelector(".filtre");
+const token = sessionStorage.token;
+const logout = document.getElementById("logout");
+const banniere = document.querySelector(".bandeauNoir");
 
 // ---- Récupération des oeuvres à partir de l'api -----
 const getWorks = async () => {
@@ -10,15 +13,13 @@ const getWorks = async () => {
 
 let indexBouton = 0;
 
-// initialisation de la page
+// ---- Initialisation de la page
 document.addEventListener("DOMContentLoaded", async () => {
   const works = await getWorks(); // recuperation des works
 
   createGallery(works); // affichage des works
-  // console.log(works);
 
   const categories = await getCategories(); // recuperer les categories
-  // console.log(categories);
 
   for (let i = 0; i < categories.length; i += 1) {
     let currentBtn = document.createElement("div"); //Affichage des boutons
@@ -28,21 +29,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     currentBtn.innerText = categories[i].name; // noms des categories qui s'affichent dans les boutons hihihi
     currentBtn.setAttribute("id", categories[i].id);
 
+    // bouton "Tous" actif au chargement de la page
     if (categories[i].id === 0) {
-      // bouton "Tous" actif au chargement de la page
       currentBtn.classList.add("selected");
     }
 
+    // Changement de couleur e=au click
     currentBtn.addEventListener("click", () => {
-      // Eventlistener et changement de couleur
       const ensBtns = document.querySelectorAll(".btn");
       ensBtns.forEach((btn) => {
         console.log(btn);
-
         btn.classList.remove("selected");
       });
       currentBtn.classList.add("selected");
 
+      // Lien vers l'api pour le filtre des boutons
       if (i !== 0) {
         allFilter = works.filter((bouton) => bouton.categoryId == i);
         createGallery(allFilter);
@@ -54,25 +55,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// const btnTous = document.querySelector("#btn-tous"); //bouton Tous
-// console.log(btnTous);
-// btnTous.addEventListener("click", () => {
-//   const ensBtns = document.querySelectorAll(".btn");
-//   ensBtns.forEach((btn) => {
-//     btn.classList.remove("selected");
-//   });
-//   btnTous.classList.add("selected");
-
-//   btnTous.innerText = categories[i].name; // noms des categories qui s'affichent dans les boutons hihihi
-//   btnTous.setAttribute("id", categories[i].id);
-// });
-
 // ----- Récuperation des catégories à partir de l'api -----
 const getCategories = async () => {
   const response = await fetch("http://localhost:5678/api/categories");
   const categories = await response.json();
 
-  const btnTous = { id: 0, name: "Tous" }; // Boutons "Tous"
+  // Affichage du bouton "Tous"
+  const btnTous = { id: 0, name: "Tous" };
   categories.unshift(btnTous);
 
   return categories;
@@ -95,4 +84,13 @@ const createGallery = (works) => {
     figures.appendChild(figureFigCaption);
     figureFigCaption.innerText = work.title;
   });
+};
+
+// ----- Validation du token est ok donc apparition du bandeau noir
+const validLogin = () => {
+  if (token) {
+    bandeauNoir.style.visibility = "visible";
+    logout.textContent = "logout";
+  }
+  console.log(validLogin);
 };

@@ -297,6 +297,7 @@ footer nav ul {
   color: #fff;
 }
 
+/* Page login */
 .lien-nav {
   text-decoration: none;
 }
@@ -356,4 +357,24 @@ form a {
 
 .error {
   color: red;
+}
+
+/* Page edition */
+
+.bandeauNoir {
+  visibility: hidden;
+  background: black;
+  height: 60px;
+  width: auto;
+  justify-content: center;
+  color: white;
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.bandeauNoir i {
+  color: white;
+  width: 20px;
+  height: 20px;
 }
