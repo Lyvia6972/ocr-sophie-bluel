@@ -362,19 +362,45 @@ form a {
 /* Page edition */
 
 .bandeauNoir {
-  visibility: hidden;
   background: black;
   height: 60px;
-  width: auto;
+  width: 1520px;
   justify-content: center;
   color: white;
   align-items: center;
-  display: flex;
+  display: none;
+  margin-left: -200px;
   gap: 10px;
 }
 
-.bandeauNoir i {
-  color: white;
-  width: 20px;
-  height: 20px;
+.bandeauNoir img {
+  color: rgb(255, 255, 255);
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+}
+
+.modifierbtn {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.modifierbtn img {
+  width: 10px;
+  height: 10px;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.modifierbtn p {
+  text-decoration: none;
+  color: black;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.modifierbtn a {
+  text-decoration: none;
+  display: flex;
+  gap: 5px;
 }

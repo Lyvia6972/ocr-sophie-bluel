@@ -1,8 +1,9 @@
 const contenerGallery = document.querySelector(".gallery");
 const conteneurBtn = document.querySelector(".filtre");
-const token = sessionStorage.token;
+const token = sessionStorage.getItem("token");
 const logout = document.getElementById("logout");
 const banniere = document.querySelector(".bandeauNoir");
+// console.log(logout, banniere);
 
 // ---- Récupération des oeuvres à partir de l'api -----
 const getWorks = async () => {
@@ -34,11 +35,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       currentBtn.classList.add("selected");
     }
 
-    // Changement de couleur e=au click
+    // Changement de couleur au click
     currentBtn.addEventListener("click", () => {
       const ensBtns = document.querySelectorAll(".btn");
       ensBtns.forEach((btn) => {
-        console.log(btn);
+        // console.log(btn);
         btn.classList.remove("selected");
       });
       currentBtn.classList.add("selected");
@@ -47,12 +48,36 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (i !== 0) {
         allFilter = works.filter((bouton) => bouton.categoryId == i);
         createGallery(allFilter);
-        // console.log(allFilter);
       } else {
         createGallery(works);
       }
     });
   }
+
+  // Si loggé le beandeau noir s'affiche sinon il disparait
+  // if (isLogged) {
+  //   banniere.style.display = "flex";
+  //   logout.textContent = "logout";
+  //   console.log("Je suis connectée");
+  // } else {
+
+  //   console.log("Je ne suis pas connecte");
+  // }
+
+  if (token) {
+    banniere.style.display = "flex";
+    logout.textContent = "logout";
+    console.log("Je suis connectée");
+    conteneurBtn.style.display = "none";
+  } else {
+    console.log("Je ne suis pas connecte");
+  }
+
+  // Se deconnecter lorsque l'on clique sur "logout" donc token effacé
+  if (logout !== null)
+    logout.addEventListener("click", () => {
+      sessionStorage.clear("token");
+    });
 });
 
 // ----- Récuperation des catégories à partir de l'api -----
@@ -86,11 +111,8 @@ const createGallery = (works) => {
   });
 };
 
-// ----- Validation du token est ok donc apparition du bandeau noir
-const validLogin = () => {
-  if (token) {
-    bandeauNoir.style.visibility = "visible";
-    logout.textContent = "logout";
-  }
-  console.log(validLogin);
-};
+// ----- Modale -----
+// verifie si l'utilisateur est connecté ou pas
+async function isLogged() {
+  return sessionStorage.getItem("token");
+}
