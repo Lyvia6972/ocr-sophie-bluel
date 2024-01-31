@@ -10,12 +10,31 @@
       href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
+    <div class="fondClair"></div>
+
+    <div class="modal">
+      <div class="modalTitre">
+        <h2>Galerie photo</h2>
+        <div class="modalCroix">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </div>
+
+      <div class="modalBody"></div>
+
+      <div class="modalFooter">
+        <button class="btn selected">Ajouter une photo</button>
+      </div>
+    </div>
     <div class="bandeauNoir">
-      <!-- <i class="fa-solid fa-pen-to-square" ></i> -->
       <img
         src="./assets/icons/pen-to-square-regular.svg"
         alt="stylo dans carré"
@@ -64,12 +83,14 @@
         </article>
       </section>
       <section id="portfolio">
-        <div class="modifierbtn">
+        <div class="contenurTitreModif">
           <h2>Mes Projets</h2>
-          <a href="">
-            <img src="./assets/icons/pen-to-square-regular.svg" />
-            <p>modifier</p>
-          </a>
+          <div class="modifierbtn">
+            <a href="">
+              <img src="./assets/icons/pen-to-square-regular.svg" />
+              <p>modifier</p>
+            </a>
+          </div>
         </div>
         <div class="filtre"></div>
         <div class="gallery">

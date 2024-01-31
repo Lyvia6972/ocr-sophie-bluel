@@ -4,6 +4,7 @@ const token = sessionStorage.getItem("token");
 const logout = document.getElementById("logout");
 const banniere = document.querySelector(".bandeauNoir");
 // console.log(logout, banniere);
+const modifierbtn = document.querySelector(".modifierbtn");
 
 // ---- Récupération des oeuvres à partir de l'api -----
 const getWorks = async () => {
@@ -69,6 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     logout.textContent = "logout";
     console.log("Je suis connectée");
     conteneurBtn.style.display = "none";
+    modifierbtn.style.display = "flex";
   } else {
     console.log("Je ne suis pas connecte");
   }
