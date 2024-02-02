@@ -3,8 +3,12 @@ const conteneurBtn = document.querySelector(".filtre");
 const token = sessionStorage.getItem("token");
 const logout = document.getElementById("logout");
 const banniere = document.querySelector(".bandeauNoir");
-// console.log(logout, banniere);
 const modifierbtn = document.querySelector(".modifierbtn");
+const fondclair = document.querySelector(".fondClair");
+const modal = document.querySelector(".modal");
+const closemodal = document.querySelector(".modalClose i");
+const modalBody = document.querySelector(".modalBody");
+// console.log(logout, banniere, modifierbtn, modal, closemodal);
 
 // ---- Récupération des oeuvres à partir de l'api -----
 const getWorks = async () => {
@@ -68,9 +72,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (token) {
     banniere.style.display = "flex";
     logout.textContent = "logout";
-    console.log("Je suis connectée");
     conteneurBtn.style.display = "none";
     modifierbtn.style.display = "flex";
+    console.log("Je suis connectée");
   } else {
     console.log("Je ne suis pas connecte");
   }
@@ -80,6 +84,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     logout.addEventListener("click", () => {
       sessionStorage.clear("token");
     });
+
+  createGalleryModal(works); // affichage de la galerie dans la modale
 });
 
 // ----- Récuperation des catégories à partir de l'api -----
@@ -118,3 +124,32 @@ const createGallery = (works) => {
 async function isLogged() {
   return sessionStorage.getItem("token");
 }
+
+async function afficherModal() {
+  modal.style.display = "flex";
+  fondclair.style.display = "flex";
+}
+
+modifierbtn.addEventListener("click", afficherModal);
+
+async function fermerModal() {
+  fondclair.style.display = "none";
+  modal.style.display = "none";
+}
+
+closemodal.addEventListener("click", fermerModal);
+
+// Récupération de la galerie pour la modale
+const createGalleryModal = (works) => {
+  works.forEach((work) => {
+    // console.log(work);
+    const modalFigures = document.createElement("figure");
+    modalBody.appendChild(modalFigures);
+
+    const imgFigureModal = document.createElement("img");
+    modalFigures.appendChild(imgFigureModal);
+    imgFigureModal.src = work.imageUrl;
+    imgFigureModal.alt = work.title;
+    console.log(imgFigureModal);
+  });
+};
