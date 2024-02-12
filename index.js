@@ -3,12 +3,15 @@ const conteneurBtn = document.querySelector(".filtre");
 const token = sessionStorage.getItem("token");
 const logout = document.getElementById("logout");
 const banniere = document.querySelector(".bandeauNoir");
-const modifierbtn = document.querySelector(".modifierbtn");
+const openModal = document.querySelector(".openModal");
 const fondclair = document.querySelector(".fondClair");
 const modal = document.querySelector(".modal");
 const closemodal = document.querySelector(".modalClose i");
 const modalBody = document.querySelector(".modalBody");
-// console.log(logout, banniere, modifierbtn, modal, closemodal);
+const modal2 = document.querySelector(".modal2");
+const retour = document.querySelector(".retour");
+// const poubelleBtn = document.querySelector(".poubelleBtn");
+// console.log(logout, banniere, openModal, modal, closemodal, modal2);
 
 // ---- Récupération des oeuvres à partir de l'api -----
 const getWorks = async () => {
@@ -19,7 +22,7 @@ const getWorks = async () => {
 
 let indexBouton = 0;
 
-// ---- Initialisation de la page
+// ---- Initialisation de la page ----
 document.addEventListener("DOMContentLoaded", async () => {
   const works = await getWorks(); // recuperation des works
 
@@ -59,27 +62,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // Si loggé le beandeau noir s'affiche sinon il disparait
-  // if (isLogged) {
-  //   banniere.style.display = "flex";
-  //   logout.textContent = "logout";
-  //   console.log("Je suis connectée");
-  // } else {
-
-  //   console.log("Je ne suis pas connecte");
-  // }
-
+  // ---- Vérification de la connection du client avec la validation du token ----
   if (token) {
     banniere.style.display = "flex";
     logout.textContent = "logout";
     conteneurBtn.style.display = "none";
-    modifierbtn.style.display = "flex";
+    openModal.style.display = "flex";
     console.log("Je suis connectée");
   } else {
     console.log("Je ne suis pas connecte");
   }
 
-  // Se deconnecter lorsque l'on clique sur "logout" donc token effacé
+  // ---- Se deconnecter lorsque l'on clique sur "logout" donc token effacé ----
   if (logout !== null)
     logout.addEventListener("click", () => {
       sessionStorage.clear("token");
@@ -120,36 +114,74 @@ const createGallery = (works) => {
 };
 
 // ----- Modale -----
-// verifie si l'utilisateur est connecté ou pas
-async function isLogged() {
-  return sessionStorage.getItem("token");
-}
-
-async function afficherModal() {
-  modal.style.display = "flex";
-  fondclair.style.display = "flex";
-}
-
-modifierbtn.addEventListener("click", afficherModal);
-
-async function fermerModal() {
-  fondclair.style.display = "none";
-  modal.style.display = "none";
-}
-
-closemodal.addEventListener("click", fermerModal);
 
 // Récupération de la galerie pour la modale
 const createGalleryModal = (works) => {
   works.forEach((work) => {
-    // console.log(work);
-    const modalFigures = document.createElement("figure");
+    // console.log(work.id);
+    const modalFigures = document.createElement("figure2");
     modalBody.appendChild(modalFigures);
 
     const imgFigureModal = document.createElement("img");
     modalFigures.appendChild(imgFigureModal);
     imgFigureModal.src = work.imageUrl;
     imgFigureModal.alt = work.title;
-    console.log(imgFigureModal);
+    // console.log(imgFigureModal);
+
+    const poubelleBtn = document.createElement("i");
+    modalFigures.appendChild(poubelleBtn);
+    poubelleBtn.classList.add("fa-regular");
+    poubelleBtn.classList.add("fa-trash-can");
+    // console.log(poubelleBtn);
+    poubelleBtn.addEventListener("click", function () {
+      console.log("je supprime la photo numero " + work.id);
+      deletePhoto(work.id);
+    });
   });
 };
+
+function afficherModal() {
+  // console.log("test de afficher modal");
+  modal.style.display = "block";
+  fondclair.style.display = "block";
+}
+
+openModal.addEventListener("click", afficherModal);
+
+function fermerModal() {
+  fondclair.style.display = "none";
+  modal.style.display = "none";
+  modal2.style.display = "none";
+}
+
+closemodal.addEventListener("click", fermerModal);
+
+fondclair.addEventListener("click", fermerModal);
+
+// Supprimer une photo
+async function deletePhoto() {
+  const response = await fetch("http://localhost:5678/api/works/${id}", {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer" + token,
+    },
+  }).then((response) => {
+    if (response.ok) {
+      console.log("projet supprimé");
+      createGalleryModal(works);
+    }
+  });
+}
+
+ajoutPhoto.addEventListener("click", function () {
+  modal.style.display = "none";
+  modal2.style.display = "flex";
+});
+
+// ---- Modale 2 ----
+
+// Flèche pour revenir sur la modale 1
+retour.addEventListener("click", function () {
+  modal2.style.display = "none";
+  modal.style.display = "flex";
+});

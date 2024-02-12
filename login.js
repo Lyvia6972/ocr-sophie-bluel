@@ -1,10 +1,10 @@
 const form = document.querySelector("form");
 
-form.addEventListener("submit", function (envoie) {
+form.addEventListener("submit", function (event) {
   const myEmail = document.getElementById("email").value;
   const myMdp = document.getElementById("password").value;
 
-  envoie.preventDefault();
+  event.preventDefault();
 
   fetch("http://localhost:5678/api/users/login", {
     method: "POST",

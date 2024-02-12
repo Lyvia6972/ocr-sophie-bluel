@@ -373,40 +373,48 @@ form a {
   gap: 10px;
 }
 
-.bandeauNoir img {
+.bandeauNoir i {
   color: rgb(255, 255, 255);
-  width: 15px;
-  height: 15px;
-  background-color: #fff;
+  width: 20px;
+}
+
+.bandeauNoir p {
+  font-size: 18px;
 }
 
 .contenurTitreModif {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
 }
 
-.modifierbtn {
+.openModal {
   display: none;
-}
-.modifierbtn img {
-  width: 10px;
-  height: 10px;
-  margin-top: 10px;
-  margin-left: 20px;
+  border: none;
+  height: 20px;
+  background-color: #ffffff;
+  margin-top: 5px;
+  align-items: center;
+  cursor: pointer;
+  font-family: "syne", sans serif;
+  font-weight: 300;
+  gap: 9px;
 }
 
-.modifierbtn p {
+.openModal img {
+  width: 16px;
+}
+
+.openModal p {
   text-decoration: none;
   color: black;
-  font-size: 12px;
-  margin-top: 10px;
+  font-size: 16px;
+  margin-top: 5px;
 }
 
-.modifierbtn a {
+.openModal a {
   text-decoration: none;
   display: flex;
-  gap: 5px;
 }
 
 /* Page modale */
@@ -418,37 +426,41 @@ form a {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
-  /* display: none; */
+  display: none;
+  justify-content: center;
+  align-items: center;
 }
 
-.modal {
-  position: fixed;
-  top: 50%;
+.modal,
+.modal2 {
+  position: absolute;
+  top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  height: 600px;
-  background-color: #fff;
+  width: 620px;
+  height: 700px;
+  background-color: #ffffff;
   padding: 20px;
-  /* display: none; */
-  /* z-index: 99; */
+  display: none;
+  border-radius: 10px;
+  align-items: center;
+  flex-direction: column;
 }
 
 .modalClose {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 25px;
+  right: 30px;
   cursor: pointer;
 }
 
 .modalClose i {
-  width: 5px;
-  height: 10px;
+  font-size: 21px;
 }
 
 .modalTitre h2 {
-  margin-top: 30px;
-  margin-bottom: 45px;
+  margin-top: 40px;
+  margin-bottom: 60px;
   font-family: "Work Sans";
   font-size: 26px;
   font-weight: 400;
@@ -460,28 +472,90 @@ form a {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
+
+.modalFooter .trait {
+  height: 1px;
+  width: 400px;
+  background-color: #b3b3b3;
+  margin: 70px 0 45px 0;
 }
 
 .modalFooter button {
   font-size: 15px;
-  bottom: 10px;
+  /* bottom: 10px; */
   padding: 10px 50px;
+  margin-bottom: 45px;
 }
 
 .modalBody {
-  width: 100%;
+  width: 400px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
+  padding: 0 100px;
 }
 
-.modalBody img {
+.modalBody figure2 {
+  position: relative;
+}
+
+figure2 img {
   width: 100%;
-  height: 100px;
+  height: 110px;
   object-fit: cover;
 }
 
-.modalBody figure {
-  position: relative;
+figure2 i {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  color: white;
+  background-color: black;
+  padding: 5px;
+  border-radius: 2px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.retour {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  cursor: pointer;
+}
+
+.retour i {
+  font-size: 22px;
+}
+
+.modalBody2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.conteneurPhoto {
+  width: 400px;
+  height: 200px;
+  background-color: #e8f1f6;
+  border-radius: 3px;
+  align-items: center;
+}
+
+.conteneurPhoto i {
+  margin-top: 20px;
+  font-size: 90px;
+  color: #b9c5cc;
+}
+
+.conteneurPhoto .btnAjoutPhoto {
+  padding: 15px 50px;
+  background-color: #cbd6dc;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 10px 0;
+  color: #306685;
 }
