@@ -45,17 +45,34 @@
           <i class="fa-solid fa-xmark"></i>
         </div>
       </div>
+
       <form class="modalBody2">
         <div class="conteneurPhoto">
-          <i class="fa-regular fa-image"></i>
-          <div class="btnAjoutPhoto">+ Ajouter photo</div>
+          <i class="fa-regular fa-image" id="photoMiniature"></i>
+          <label for="telechargerPhoto" class="btnAjoutPhoto"
+            >+ Ajouter photo</label
+          >
+          <input
+            type="file"
+            id="telechargerPhoto"
+            accept="image/jpg, image/png, image/jpeg"
+          />
+          <img id="apercu" />
           <p>jpg, png : 4mo max</p>
         </div>
+        <div class="conteneurTitre">
+          <label for="titrePhoto">Titre</label>
+          <input type="text" name="titrePhoto" id="titrePhoto" />
+        </div>
+        <div class="conteneurCategorie">
+          <label for="typeCategorie">Catégorie</label>
+          <select name="typeCategorie" id="typeCategorie"></select>
+        </div>
+        <div class="modal2Footer">
+          <div class="trait"></div>
+          <button class="btn" id="validPhoto">Valider</button>
+        </div>
       </form>
-      <div class="modalFooter">
-        <div class="trait"></div>
-        <button class="btn" id="validPhoto">Valider</button>
-      </div>
     </div>
 
     <div class="bandeauNoir">
