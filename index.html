@@ -46,18 +46,12 @@
         </div>
       </div>
 
-      <form class="modalBody2">
+      <form class="modalBody2" id="photoForm">
         <div class="conteneurPhoto">
           <i class="fa-regular fa-image" id="photoMiniature"></i>
-          <label for="telechargerPhoto" class="btnAjoutPhoto"
-            >+ Ajouter photo</label
-          >
-          <input
-            type="file"
-            id="telechargerPhoto"
-            accept="image/jpg, image/png, image/jpeg"
-          />
-          <img id="apercu" />
+          <label for="telechargerPhoto"  class="btnAjoutPhoto">+ Ajouter photo</label>
+          <input type="file" name="telechargerPhoto" id="telechargerPhoto" accept="image/jpg, image/png, image/jpeg">
+          <img id="apercu"/>
           <p>jpg, png : 4mo max</p>
         </div>
         <div class="conteneurTitre">
@@ -67,10 +61,11 @@
         <div class="conteneurCategorie">
           <label for="typeCategorie">Catégorie</label>
           <select name="typeCategorie" id="typeCategorie"></select>
+          <p class="error"></p>
         </div>
         <div class="modal2Footer">
           <div class="trait"></div>
-          <button class="btn" id="validPhoto">Valider</button>
+          <button type="submit" class="btn" id="validPhoto">Valider</button>
         </div>
       </form>
     </div>

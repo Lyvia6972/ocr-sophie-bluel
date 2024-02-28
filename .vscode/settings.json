@@ -1,4 +1,12 @@
 {
-  "editor.renderWhitespace": "selection",
-  "editor.autoClosingBrackets": "always"
+	"editor.renderWhitespace": "selection",
+	"editor.autoClosingBrackets": "always",
+	"editor.formatOnSave": true,
+	"diffEditor.hideUnchangedRegions.revealLineCount": 6,
+	"diffEditor.ignoreTrimWhitespace": false,
+	"prettier.tabWidth": 2,
+	"prettier.useTabs": true,
+	"prettier.enable": false,
+	"editor.formatOnPaste": true,
+	"editor.tabSize": 2
 }
