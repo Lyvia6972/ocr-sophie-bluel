@@ -15,16 +15,19 @@ const apercu = document.getElementById("apercu");
 const titrePhoto = document.getElementById("titrePhoto");
 const telechargerPhoto = document.getElementById("telechargerPhoto");
 const photoForm = document.getElementById("photoForm");
-const typeCategorie = document.getElementById("typeCategorie");
+const errorFormulaire = document.querySelector(".error2");
+const validFormulaire = document.getElementById("validPhoto");
+const btnFormulaire = document.querySelector(".btnFormulaire");
+
 // console.log(logout,banniere,openModal,modal,closemodal,modal2,choisirCategorie,titrePhoto,telechargerPhoto,apercu,photoForm);
 
 
 
 // ---- Récupération des oeuvres à partir de l'api -----
 const getWorks = async () => {
-const response = await fetch("http://localhost:5678/api/works");
-const works = await response.json();
-return works;
+   const response = await fetch("http://localhost:5678/api/works");
+   const works = await response.json();
+   return works;
 };
 
 
@@ -167,12 +170,10 @@ const createGalleryModal = (works) => {
 
 
 function afficherModal() {
-	// console.log("test de afficher modal");
 	modal.style.display = "block";
 	fondclair.style.display = "block";
 }
 openModal.addEventListener("click", afficherModal);
-
 
 
 function fermerModal() {
@@ -187,7 +188,6 @@ closemodal.addEventListener("click", fermerModal);
 fondclair.addEventListener("click", fermerModal);
 
 
-
 // Supprimer une photo
 function deletePhoto(id) {
 	const response = fetch("http://localhost:5678/api/works/" + id, {
@@ -200,9 +200,7 @@ function deletePhoto(id) {
 			majGallery();
 			alert("L'élément a bien été supprimé");
 		} else {
-			alert(
-				"L'élément n'a pas pu être supprimé, veuillez-vous reconnecter."
-			);
+			alert("L'élément n'a pas pu être supprimé, veuillez-vous reconnecter.");
 			document.location.href = "login.html";
 		}
 	});
@@ -228,7 +226,6 @@ const majGallery = () => {
 };
 
 
-
 // ---- Modale 2 ----
 
 // Flèche pour revenir sur la modale 1
@@ -246,6 +243,7 @@ function resetModal2() {
 	apercu.style.display = "none";
 	titrePhoto.value = "";
 	choisirCategorie.value ="1";
+	errorFormulaire.innerHTML = "";
 };
 
 
@@ -280,12 +278,9 @@ function ajoutProjet() {
 	const formData = new FormData();
 	// const formData = new FormData(photoForm);
 	formData.append("image", telechargerPhoto.files[0]);
-	// console.log("image", telechargerPhoto.files[0]);
 	formData.append("title", titrePhoto.value);
-	// console.log("title",titrePhoto.value);
-	formData.append("category", typeCategorie.value);
-	console.log("categorie", typeCategorie.value);
-
+	formData.append("category", choisirCategorie.value);
+	console.log("categorie", choisirCategorie.value);
 
 	const response = fetch("http://localhost:5678/api/works/", {
 		method: "POST",
@@ -299,23 +294,39 @@ function ajoutProjet() {
 				console.log("Me vois tu ?")
 				majGallery();
 				resetModal2();
-			} else if (response.status === 401) {
+			} else if (response.status == "401") {
           alert("Veuillez vous reconnecter");
           window.location.href = "login.html";
 			}
 		});
-
-		
 };	
 
 
-photoForm.addEventListener('submit', (e) => {
+photoForm.addEventListener("submit", (e) => {
 	e.preventDefault();
 	ajoutProjet();
-	if (telechargerPhoto.files[0] === undefined && titrePhoto.value === "" && typeCategorie.value === "" ){
-		 document.querySelector(".error").innerHTML = "Merci de remplir tous les champs";
+	// if (titrePhoto.value ==="" ){
+	// 	alert("Titre manquant ");
+	// 	return false;
+	// }
+	// if (telechargerPhoto.files[0] === undefined){
+	// 	alert("Photo manquante");
+	// 	return false;
+	// }
+	// if (choisirCategorie.value === "0"){
+	// 	alert("Choisis ta catégorie");
+	// 	return false;
+	// } else {
+	// 		validPhoto.classList.add(".selected");
+	// }
+
+	if (telechargerPhoto.files[0] === undefined || titrePhoto.value ==="" || choisirCategorie.value === "0"){
+		 errorFormulaire.innerHTML = "Veuillez remplir tous les champs";
 	} else {
-			validPhoto.classList.add(".selected");
+			modal2.style.display = "none";
+	    modal.style.display = "flex";
+			btnFormulaire.classList.add(".selected");
 	}
 
-});
+
+})
